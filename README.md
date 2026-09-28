@@ -4,10 +4,13 @@
 
 <br>
 
-I build the plumbing that data and AI agents run on: distributed pipelines, workflow engines that survive failure, and backends that keep many tenants apart. Senior data and AI engineer at **Experion Technologies**, based in Alappuzha, Kerala. When the builds are green, I paint.
+I build GenAI systems that work on real company data: retrieval over vector databases, text-to-SQL that lets people ask their data questions in plain language, and the pipelines and backends underneath. Senior data and AI engineer at **Experion Technologies**, based in Alappuzha, Kerala. When the builds are green, I paint.
 
 ### Running right now
 
+- GenAI applications: RAG, embeddings and vector databases for grounded answers
+- Text-to-SQL: LLMs that turn plain-language questions into correct queries
+- Multi-agent AI workflows with LangGraph
 - Distributed data pipelines, orchestration architectures and local-first AI tooling
 - Microservices, event-driven backends and multi-tenant container orchestration
 - Relational and graph data modeling, from PostgreSQL schemas to Neo4j knowledge graphs
@@ -15,13 +18,20 @@ I build the plumbing that data and AI agents run on: distributed pipelines, work
 
 ### Stack
 
-<img src="./assets/stack.svg" width="100%" alt="Tech stack. Data and orchestration: Python, Apache Spark, Cassandra, Temporal, PostgreSQL, Neo4j. AI and backends: LangGraph, FastAPI, Docker, Traefik, GitHub Actions.">
+<img src="./assets/stack.svg" width="100%" alt="Tech stack. Data and orchestration: Python, Apache Spark, Cassandra, Temporal, PostgreSQL, Neo4j. GenAI and retrieval: LLMs, RAG, vector databases, text-to-SQL, embeddings, LangGraph. Backends and ops: FastAPI, Docker, Traefik, GitHub Actions.">
 
 ### Shipped
 
 <p>
   <a href="https://github.com/Jeevanvsan/sharejeeni"><img src="./assets/card-sharejeeni.svg" width="49%" alt="sharejeeni: Python package that downloads files from SharePoint with Azure AD client credentials"></a>
   <a href="https://github.com/Jeevanvsan/DViewer-Doc"><img src="./assets/card-dviewer.svg" width="49%" alt="DViewer: data aggregation and query platform for many sources in one interface"></a>
+</p>
+
+### From LinkedIn
+
+<p>
+  <a href="https://www.linkedin.com/feed/update/urn:li:activity:7507768262965841920/"><img src="./assets/post-sparc-hackathon.svg" width="49%" alt="SPARC Hackathon 2026, first place: Team NexMind won out of 20 teams, extending the ARC Forge AI SDLC framework"></a>
+  <a href="https://www.linkedin.com/in/jeevan-varghese-1a5237214/overlay/1781029902341/single-media-viewer/?profileId=ACoAADYju00BXFPRWUJM0Kh40D_FelKYDE_pOy0"><img src="./assets/post-award-of-excellence.svg" width="49%" alt="Award of Excellence, Experion R&R 2026, for consistently exceeding expectations in Q4 2025"></a>
 </p>
 
 ### Activity

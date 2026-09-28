@@ -1,4 +1,6 @@
 """Generates the animated SVG assets for the GitHub profile README."""
+import base64
+import json
 from pathlib import Path
 from html import escape
 
@@ -90,9 +92,11 @@ def header():
 
     # typing line: one clip per phrase, chained with SMIL
     phrases = [
-        "orchestrating distributed pipelines",
+        "building GenAI apps on real data",
+        "turning questions into SQL with LLMs",
+        "grounding LLMs with vector search",
         "wiring multi-agent AI systems",
-        "modeling data as graphs and tables",
+        "orchestrating distributed pipelines",
         "writing about Python for data engineering",
         "painting when the builds are green",
     ]
@@ -120,7 +124,7 @@ def header():
     svg = f"""
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-labelledby="t d">
 <title id="t">Jeevan Varghese</title>
-<desc id="d">Data engineer and software architect. An animated workflow graph shows data moving from ingestion through Spark and Temporal into Cassandra, Neo4j and a group of AI agents.</desc>
+<desc id="d">Senior data and AI engineer working on GenAI, vector search and text-to-SQL. An animated workflow graph shows data moving from ingestion through Spark and Temporal into Cassandra, Neo4j and a group of AI agents.</desc>
 <defs>
   <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
     <circle cx="1" cy="1" r="1" fill="#141C3A"/>
@@ -172,7 +176,7 @@ def header():
 
 <text x="64" y="104" class="prompt">~/jeevanvsan $ whoami</text>
 <text x="60" y="182" class="name">Jeevan Varghese</text>
-<text x="64" y="224" class="role">Data engineer and software architect</text>
+<text x="64" y="224" class="role">Senior data and AI engineer</text>
 
 <text x="64" y="{TY}" class="prompt" style="font-size:19px">&gt;</text>
 {''.join(typed)}
@@ -195,10 +199,12 @@ def stack():
     lanes = [
         ("data and orchestration", SIGNAL,
          ["Python", "Apache Spark", "Cassandra", "Temporal", "PostgreSQL", "Neo4j"]),
-        ("ai and backends", PLASMA,
-         ["LangGraph", "FastAPI", "Docker", "Traefik", "GitHub Actions"]),
+        ("genai and retrieval", PLASMA,
+         ["LLMs", "RAG", "Vector DBs", "Text-to-SQL", "Embeddings", "LangGraph"]),
+        ("backends and ops", EMBER,
+         ["FastAPI", "Docker", "Traefik", "GitHub Actions"]),
     ]
-    W, H = 1200, 250
+    W, H = 1200, 350
     X0, GAP, CW = 260, 26, 8.8
     body, defs = [], []
     for li, (label, colour, tools) in enumerate(lanes):
@@ -232,7 +238,7 @@ def stack():
             )
     svg = f"""
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-labelledby="t">
-<title id="t">Tech stack: Python, Apache Spark, Cassandra, Temporal, PostgreSQL, Neo4j, LangGraph, FastAPI, Docker, Traefik, GitHub Actions</title>
+<title id="t">Tech stack: Python, Apache Spark, Cassandra, Temporal, PostgreSQL, Neo4j, LLMs, RAG, vector databases, text-to-SQL, embeddings, LangGraph, FastAPI, Docker, Traefik, GitHub Actions</title>
 <defs>{''.join(defs)}</defs>
 <style>
   .lane {{ font:500 14px {MONO}; fill:{MUTED}; }}
@@ -277,6 +283,49 @@ def card(fname, name, lines, tag, colour):
 </rect>
 <text x="32" y="56" class="name">{escape(name)}</text>
 <circle class="live" cx="{W-40}" cy="47" r="5" fill="{colour}"/>
+{desc}
+<circle cx="37" cy="{H-33}" r="5" fill="{colour}"/>
+<text x="50" y="{H-28}" class="tag">{escape(tag)}</text>
+</svg>"""
+    write(fname, svg)
+
+
+# ------------------------------------------------------------ post cards ----
+def post_card(fname, name, lines, tag, colour, photo):
+    """Repo-card styling with a photo banner; the photo is embedded because
+    GitHub blocks external images inside SVGs."""
+    W, BH = 580, 220
+    H = BH + 170
+    img = base64.b64encode(photo.read_bytes()).decode()
+    desc = "".join(
+        f'<text x="32" y="{BH + 86 + i*24}" class="desc">{escape(l)}</text>' for i, l in enumerate(lines)
+    )
+    svg = f"""
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-labelledby="t">
+<title id="t">{escape(name)}: {escape(' '.join(lines))}</title>
+<defs>
+  <clipPath id="cc"><rect width="{W}" height="{H}" rx="16"/></clipPath>
+  <linearGradient id="fade" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0.55" stop-color="{PANEL}" stop-opacity="0"/><stop offset="1" stop-color="{PANEL}"/>
+  </linearGradient>
+  <linearGradient id="edge" x1="0" x2="1"><stop offset="0" stop-color="{colour}" stop-opacity="0"/>
+  <stop offset="0.5" stop-color="{colour}"/><stop offset="1" stop-color="{colour}" stop-opacity="0"/></linearGradient>
+</defs>
+<style>
+  .name {{ font:700 26px {SANS}; fill:{TEXT}; }}
+  .desc {{ font:400 15.5px {SANS}; fill:{MUTED}; }}
+  .tag {{ font:500 13px {MONO}; fill:{colour}; }}
+</style>
+<g clip-path="url(#cc)">
+  <rect width="{W}" height="{H}" fill="{PANEL}"/>
+  <image href="data:image/jpeg;base64,{img}" width="{W}" height="{BH}" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="{W}" height="{BH}" fill="url(#fade)"/>
+  <rect y="{BH}" height="2" width="200" fill="url(#edge)">
+    <animate attributeName="x" from="-200" to="{W}" dur="4.5s" repeatCount="indefinite"/>
+  </rect>
+</g>
+<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="16" fill="none" stroke="{WIRE}"/>
+<text x="32" y="{BH + 48}" class="name">{escape(name)}</text>
 {desc}
 <circle cx="37" cy="{H-33}" r="5" fill="{colour}"/>
 <text x="50" y="{H-28}" class="tag">{escape(tag)}</text>
@@ -354,6 +403,10 @@ if __name__ == "__main__":
          ["Data aggregation and query platform: view and query",
           "many data sources from a single interface."],
          "Data platform  |  docs", PLASMA)
+    # LinkedIn highlights: add one entry to posts.json per post, then rerun
+    for p in json.loads((Path(__file__).parent / "posts.json").read_text(encoding="utf-8")):
+        post_card(f"post-{p['slug']}.svg", p["title"], p["lines"], p["tag"], EMBER,
+                  OUT / "photos" / f"{p['slug']}.jpg")
     button("btn-linkedin.svg", "LinkedIn", "in/jeevan-varghese-1a5237214", SIGNAL)
     button("btn-blog.svg", "Blog", "jeevan-varghese.blogspot.com", PLASMA)
     button("btn-email.svg", "Email", "jeevanvsan@gmail.com", EMBER)
