@@ -1,10 +1,10 @@
 <div align="center">
-  <img src="./assets/header.svg" width="100%" alt="Jeevan Varghese, data engineer and software architect. An animated workflow graph moves data from ingestion through Spark and Temporal into Cassandra, Neo4j and a group of AI agents.">
+  <img src="./assets/header.svg" width="100%" alt="Jeevan Varghese, senior data and AI engineer. An animated workflow graph moves data from ingestion through Spark and Temporal into Cassandra, Neo4j and a group of AI agents.">
 </div>
 
 <br>
 
-I build the plumbing that data and AI agents run on: distributed pipelines, workflow engines that survive failure, and backends that keep many tenants apart. Based in Alappuzha, Kerala, currently at **Sandvar**, with earlier years as a data analyst at Experion Technologies. When the builds are green, I paint.
+I build the plumbing that data and AI agents run on: distributed pipelines, workflow engines that survive failure, and backends that keep many tenants apart. Senior data and AI engineer at **Experion Technologies**, based in Alappuzha, Kerala. When the builds are green, I paint.
 
 ### Running right now
 
